@@ -1,0 +1,25 @@
+# Garak config for the Northwind bot. Run from the project root:
+#   source .venv-garak/bin/activate
+#   garak --config attacks/garak/northwind.yaml --probes promptinject
+run:
+  generations: 1            # 1 reply per prompt; raise to 3-5 for the final run
+  soft_probe_prompt_cap: 20 # cap prompts per probe so a local model finishes in minutes
+
+plugins:
+  target_type: rest
+  generators:
+    rest:
+      RestGenerator:
+        name: northwind-bot
+        uri: http://localhost:8000/chat
+        method: post
+        headers:
+          Content-Type: application/json
+        req_template_json_object:
+          message: $INPUT
+        response_json: true
+        response_json_field: reply
+        request_timeout: 180
+
+reporting:
+  report_prefix: northwind

@@ -1,0 +1,7 @@
+.venv-*/
+__pycache__/
+*.pyc
+.env
+.promptfoo/
+garak_runs/
+*.log
